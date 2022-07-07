@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class InitialPage extends React.Component {
   constructor() {
@@ -12,6 +13,13 @@ class InitialPage extends React.Component {
     const { productList } = this.state;
     return (
       <section>
+        <Link
+          to="/carrinho"
+          data-testid="shopping-cart-button"
+        >
+          Carrinho
+
+        </Link>
         {
           productList.length === 0 && (
             <h1
