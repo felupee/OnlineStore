@@ -9,6 +9,9 @@ class ShoppingCart extends React.Component {
   }
 
   componentDidMount() {
+    if (!JSON.parse(localStorage.getItem('key'))) {
+      localStorage.setItem('key', JSON.stringify([]));
+    }
     const cart = JSON.parse(localStorage.getItem('key'));
     this.setState({ cart });
   }
