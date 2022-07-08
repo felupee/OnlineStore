@@ -74,6 +74,7 @@ class InitialPage extends React.Component {
           categories.map((category) => (
             <ButtonCategory
               name={ category.name }
+              id={ category.id }
               key={ category.id }
             />
           ))
