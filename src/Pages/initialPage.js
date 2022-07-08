@@ -95,6 +95,7 @@ class InitialPage extends React.Component {
                 {
                   productList.map((product) => (
                     <Products
+                      id={ product.id }
                       key={ product.id }
                       title={ product.title }
                       price={ product.price }
