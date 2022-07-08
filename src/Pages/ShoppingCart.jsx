@@ -5,6 +5,7 @@ class ShoppingCart extends React.Component {
     super();
     this.state = {
       cart: [],
+      quantity: 1,
     };
   }
 
@@ -16,6 +17,27 @@ class ShoppingCart extends React.Component {
     this.setState({ cart });
   }
 
+  decreaseQuantity = () => {
+    this.setState((prevState) => {
+      this.setState({
+        quantity: prevState.quantity - 1,
+      });
+    });
+  }
+
+  increaseQuantity = () => {
+    this.setState((prevState) => {
+      this.setState({
+        quantity: prevState.quantity + 1,
+      });
+    });
+  }
+
+  // cart.map((item) => {
+  //   const b = cart.filter((a) => a[3] === item[3]);
+  //   return console.log(b, "-------");
+  // })
+
   render() {
     const { cart } = this.state;
     console.log(cart);
@@ -25,15 +47,33 @@ class ShoppingCart extends React.Component {
           cart.length === 0
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             : (
-              cart.map((item) => (
-                <div key={ item }>
-                  <p data-testid="shopping-cart-product-name">{item[1]}</p>
-                  <p>{item[2]}</p>
-                </div>
-              ))
+              <div key={ item }>
+                <p data-testid="shopping-cart-product-name">{item[1]}</p>
+                <p>{item[2]}</p>
+                <button
+                  type="button"
+                  data-testid="product-increase-quantity"
+                  onClick={ () => this.decreaseQuantity(item[3]) }
+                >
+                  -
+                </button>
+                <p data-testid="shopping-cart-product-quantity">
+                  {
+                    cart.filter((product) => product[3] === item[3]).length
+                  }
+                </p>
+                <button
+                  type="button"
+                  data-testid="product-increase-quantity"
+                  name={ item.title }
+                  onClick={ () => this.increaseQuantity(item[3]) }
+                >
+                  +
+                </button>
+              </div>
             )
         }
-        <p data-testid="shopping-cart-product-quantity">
+        <p>
           Quantidade:
           {cart.length}
         </p>
