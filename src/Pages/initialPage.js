@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ButtonCategory from '../components/Button';
 import Products from '../components/Products';
 import { getCategories } from '../services/api';
+import ItemsFromCategories from './ItemsFromCategories';
 
 class InitialPage extends React.Component {
   constructor() {
@@ -13,6 +14,8 @@ class InitialPage extends React.Component {
       query: '',
       search: true,
       error: false,
+      categoryClick: false,
+      id: '',
     };
   }
 
@@ -45,8 +48,16 @@ class InitialPage extends React.Component {
     }
   }
 
+  redireciona = (id) => {
+    this.setState({
+      id,
+      categoryClick: true,
+    });
+  };
+
   render() {
-    const { productList, categories, query, search, error } = this.state;
+    const { productList, categories, query,
+      search, error, categoryClick, id } = this.state;
     return (
       <section>
         <Link
@@ -76,6 +87,7 @@ class InitialPage extends React.Component {
               name={ category.name }
               id={ category.id }
               key={ category.id }
+              redireciona={ this.redireciona }
             />
           ))
         }
@@ -87,6 +99,9 @@ class InitialPage extends React.Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </h1>
           )
+        }
+        {
+          categoryClick && <ItemsFromCategories id={ id } />
         }
         {
           error ? <h1>Nenhum produto foi encontrado</h1>
