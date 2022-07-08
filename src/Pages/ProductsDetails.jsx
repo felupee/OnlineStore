@@ -11,6 +11,10 @@ class ProductDetails extends React.Component {
   }
 
   async componentDidMount() {
+    if (!JSON.parse(localStorage.getItem('key'))) {
+      localStorage.setItem('key', JSON.stringify([]));
+    }
+
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
@@ -20,6 +24,23 @@ class ProductDetails extends React.Component {
     this.setState({
       data,
     });
+  }
+
+  setLocalStorage = (produto) => {
+    localStorage.setItem('key', JSON.stringify(produto));
+  }
+
+  addCart = () => {
+    const { data } = this.state;
+    const { thumbnail, title, price, id } = data;
+    const object = [
+      thumbnail,
+      title,
+      price,
+      id,
+    ];
+    const item = JSON.parse(localStorage.getItem('key'));
+    this.setLocalStorage([...item, object]);
   }
 
   render() {
@@ -42,6 +63,14 @@ class ProductDetails extends React.Component {
           <span>{ data.price }</span>
           <p>{ data.condition }</p>
         </div>
+
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ this.addCart }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }
