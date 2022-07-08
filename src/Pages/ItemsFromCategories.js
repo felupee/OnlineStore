@@ -13,10 +13,7 @@ export default class ItemsFromCategories extends Component {
   }
 
   async componentDidMount() {
-    const { match } = this.props;
-    const { params } = match;
-    const { category } = params;
-    const id = category;
+    const { id } = this.props;
     const produtos = await getProductsFromCategoryAndQuery(id);
     this.setState({
       produtos: produtos.results,
@@ -36,5 +33,5 @@ export default class ItemsFromCategories extends Component {
 }
 
 ItemsFromCategories.propTypes = {
-  match: PropTypes.shape().isRequired,
+  id: PropTypes.string.isRequired,
 };
