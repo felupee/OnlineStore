@@ -7,6 +7,10 @@ class ProductDetails extends React.Component {
     super();
     this.state = {
       data: [],
+      comments: [],
+      userEmail: '',
+      inputRadio: '1',
+      userComment: '',
     };
   }
 
@@ -15,19 +19,25 @@ class ProductDetails extends React.Component {
       localStorage.setItem('key', JSON.stringify([]));
     }
 
+    if (!JSON.parse(localStorage.getItem('comments'))) {
+      localStorage.setItem('comments', JSON.stringify([]));
+    }
+
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
     const query = id;
     const response = await fetch(`https://api.mercadolibre.com/items/${query}`);
     const data = await response.json();
+    const comments = JSON.parse(localStorage.getItem('comments'));
     this.setState({
       data,
+      comments,
     });
   }
 
-  setLocalStorage = (produto) => {
-    localStorage.setItem('key', JSON.stringify(produto));
+  setLocalStorage = (array, item) => {
+    localStorage.setItem(`${item}`, JSON.stringify(array));
   }
 
   addCart = () => {
@@ -40,11 +50,30 @@ class ProductDetails extends React.Component {
       id,
     ];
     const item = JSON.parse(localStorage.getItem('key'));
-    this.setLocalStorage([...item, object]);
+    this.setLocalStorage([...item, object], 'key');
+  }
+
+  handleChange = (event) => {
+    const { target: { name, value } } = event;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  saveComments = () => {
+    const { userEmail, userComment, inputRadio } = this.state;
+    const object = [
+      userEmail,
+      userComment,
+      inputRadio,
+    ];
+    const item = JSON.parse(localStorage.getItem('comments'));
+    this.setLocalStorage([...item, object], 'comments');
   }
 
   render() {
-    const { data } = this.state;
+    const { data, userEmail, inputRadio, userComment, comments } = this.state;
+    const evaluation = ['1', '2', '3', '4', '5'];
     return (
       <div>
         <Link
@@ -71,6 +100,59 @@ class ProductDetails extends React.Component {
         >
           Adicionar ao Carrinho
         </button>
+
+        <form>
+          <label htmlFor="userEmail">
+            <input
+              type="email"
+              data-testid="product-detail-email"
+              name="userEmail"
+              value={ userEmail }
+              id={ userEmail }
+              onChange={ this.handleChange }
+            />
+          </label>
+          { evaluation
+            .map((note, index) => (
+              <label
+                htmlFor={ `${note}-rating` }
+                key={ index }
+              >
+                <input
+                  data-testid={ `${note}-rating` }
+                  type="radio"
+                  onChange={ this.handleChange }
+                  value={ note }
+                  name={ inputRadio }
+                />
+              </label>))}
+          <textarea
+            data-testid="product-detail-evaluation"
+            onChange={ this.handleChange }
+            value={ userComment }
+            name="userComment"
+          />
+          <button
+            data-testid="submit-review-btn"
+            type="submit"
+            onClick={ this.saveComments }
+          >
+            Salvar
+          </button>
+        </form>
+        <section>
+          {
+            comments.length > 0 && (
+              comments.map((comment) => (
+                <div key={ comment }>
+                  <span>{ comment[0] }</span>
+                  <span>{ comment[1] }</span>
+                  <p>{ comment[2] }</p>
+                </div>
+              ))
+            )
+          }
+        </section>
       </div>
     );
   }

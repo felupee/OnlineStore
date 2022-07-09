@@ -47,31 +47,32 @@ class ShoppingCart extends React.Component {
           cart.length === 0
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             : (
-              <div key={ item }>
-                <p data-testid="shopping-cart-product-name">{item[1]}</p>
-                <p>{item[2]}</p>
-                <button
-                  type="button"
-                  data-testid="product-increase-quantity"
-                  onClick={ () => this.decreaseQuantity(item[3]) }
-                >
-                  -
-                </button>
-                <p data-testid="shopping-cart-product-quantity">
-                  {
-                    cart.filter((product) => product[3] === item[3]).length
-                  }
-                </p>
-                <button
-                  type="button"
-                  data-testid="product-increase-quantity"
-                  name={ item.title }
-                  onClick={ () => this.increaseQuantity(item[3]) }
-                >
-                  +
-                </button>
-              </div>
-            )
+              cart.map((item) => (
+                <div key={ item }>
+                  <p data-testid="shopping-cart-product-name">{item[1]}</p>
+                  <p>{item[2]}</p>
+                  <button
+                    type="button"
+                    data-testid="product-increase-quantity"
+                    onClick={ () => this.decreaseQuantity(item[3]) }
+                  >
+                    -
+                  </button>
+                  <p data-testid="shopping-cart-product-quantity">
+                    {
+                      cart.filter((product) => product[3] === item[3]).length
+                    }
+                  </p>
+                  <button
+                    type="button"
+                    data-testid="product-increase-quantity"
+                    name={ item.title }
+                    onClick={ () => this.increaseQuantity(item[3]) }
+                  >
+                    +
+                  </button>
+                </div>
+              )))
         }
         <p>
           Quantidade:
