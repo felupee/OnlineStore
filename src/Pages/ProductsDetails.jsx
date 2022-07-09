@@ -7,6 +7,9 @@ class ProductDetails extends React.Component {
     super();
     this.state = {
       data: [],
+      userEmail: '',
+      inputRadio: '1',
+      userComment: '',
     };
   }
 
@@ -43,8 +46,16 @@ class ProductDetails extends React.Component {
     this.setLocalStorage([...item, object]);
   }
 
+  handleChange = (event) => {
+    const { target: { name, value } } = event;
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
-    const { data } = this.state;
+    const { data, userEmail, inputRadio, userComment } = this.state;
+    const evaluation = ['1', '2', '3', '4', '5'];
     return (
       <div>
         <Link
@@ -71,6 +82,46 @@ class ProductDetails extends React.Component {
         >
           Adicionar ao Carrinho
         </button>
+
+        <form>
+          <label htmlFor="inputEmail">
+            <input
+              type="email"
+              data-testid="product-detail-email"
+              name="inputEmail"
+              value={ userEmail }
+              id={ userEmail }
+              onChange={ this.handleChange }
+            />
+          </label>
+          { evaluation
+            .map((note, index) => (
+              <label
+                htmlFor={ `${note}-rating` }
+                key={ index }
+              >
+                <input
+                  data-testid={ `${index}-rating` }
+                  type="radio"
+                  onChange={ this.handleChange }
+                  value={ note }
+                  name={ inputRadio }
+                />
+              </label>))}
+          <textarea
+            data-testid="product-detail-evaluation"
+            onChange={ this.handleChange }
+            value={ userComment }
+            name="userComment"
+          />
+          <button
+            data-testid="submit-review-btn"
+            type="submit"
+            onClick={ this.saveComments }
+          >
+            Salvar
+          </button>
+        </form>
       </div>
     );
   }
