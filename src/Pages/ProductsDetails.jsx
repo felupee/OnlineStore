@@ -60,13 +60,24 @@ class ProductDetails extends React.Component {
     });
   }
 
-  saveComments = () => {
+  addState = (object) => {
+    this.setState((prevState) => this.setState({
+      comments: [...prevState.comments, object],
+      userEmail: '',
+      userComment: '',
+      inputRadio: '1',
+    }));
+  }
+
+  saveComments = (event) => {
+    event.preventDefault();
     const { userEmail, userComment, inputRadio } = this.state;
     const object = [
       userEmail,
       userComment,
       inputRadio,
     ];
+    this.addState(object);
     const item = JSON.parse(localStorage.getItem('comments'));
     this.setLocalStorage([...item, object], 'comments');
   }
@@ -145,9 +156,9 @@ class ProductDetails extends React.Component {
             comments.length > 0 && (
               comments.map((comment) => (
                 <div key={ comment }>
-                  <span>{ comment[0] }</span>
-                  <span>{ comment[1] }</span>
+                  <p>{ comment[0] }</p>
                   <p>{ comment[2] }</p>
+                  <p>{ comment[1] }</p>
                 </div>
               ))
             )
