@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import './ProductsDetails.css';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -83,18 +84,16 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { data, userEmail, inputRadio, userComment, comments } = this.state;
-    const evaluation = ['1', '2', '3', '4', '5'];
+    const { data, userEmail, userComment, comments } = this.state;
     return (
-      <div>
+      <div className="main-details">
         <Link
           to="/carrinho"
           data-testid="shopping-cart-button"
         >
           Carrinho
-
         </Link>
-        <div data-testid="product-detail-name">
+        <div className="product-datails" data-testid="product-detail-name">
           <img
             src={ data.thumbnail }
             alt={ data.title }
@@ -102,17 +101,18 @@ class ProductDetails extends React.Component {
           <p>{ data.title }</p>
           <span>{ data.price }</span>
           <p>{ data.condition }</p>
+          <button
+            data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ this.addCart }
+          >
+            Adicionar ao Carrinho
+          </button>
         </div>
 
-        <button
-          data-testid="product-detail-add-to-cart"
-          type="button"
-          onClick={ this.addCart }
-        >
-          Adicionar ao Carrinho
-        </button>
-
-        <form>
+        <form className="form-avaliacao">
+          <p>Adicione um comentário</p>
+          Email:
           <label htmlFor="userEmail">
             <input
               type="email"
@@ -123,20 +123,7 @@ class ProductDetails extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          { evaluation
-            .map((note, index) => (
-              <label
-                htmlFor={ `${note}-rating` }
-                key={ index }
-              >
-                <input
-                  data-testid={ `${note}-rating` }
-                  type="radio"
-                  onChange={ this.handleChange }
-                  value={ note }
-                  name={ inputRadio }
-                />
-              </label>))}
+          Comentário:
           <textarea
             data-testid="product-detail-evaluation"
             onChange={ this.handleChange }
@@ -151,13 +138,12 @@ class ProductDetails extends React.Component {
             Salvar
           </button>
         </form>
-        <section>
+        <section className="comentarios">
           {
             comments.length > 0 && (
               comments.map((comment) => (
                 <div key={ comment }>
                   <p>{ comment[0] }</p>
-                  <p>{ comment[2] }</p>
                   <p>{ comment[1] }</p>
                 </div>
               ))

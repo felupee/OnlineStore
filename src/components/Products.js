@@ -28,8 +28,9 @@ class Products extends React.Component {
   render() {
     const { thumbnail, title, price, id } = this.props;
     return (
-      <section data-testid="product">
+      <div className="itens" data-testid="product">
         <Link
+          style={ { textDecoration: 'none' } }
           to={ `/product-details/${id}` }
           data-testid="product-detail-link"
         >
@@ -49,7 +50,7 @@ class Products extends React.Component {
         >
           Adicionar ao Carrinho
         </button>
-      </section>
+      </div>
     );
   }
 }

@@ -1,0 +1,176 @@
+body{
+  background-color: #EFD9CE;
+}
+.main {
+    flex-wrap: wrap;
+    background-color: #EFD9CE;
+    
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #685044;
+    color: white;
+    width: 100%;
+  }
+  
+  .header a {
+    color: white;
+    text-decoration: none;
+    font-size: 36px;
+    font-weight: 700;
+    margin-right: 20px;
+  }
+
+  .header a:hover {
+    color: black;
+  }
+  
+  .header input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 10px;
+    width: 400px;
+    background-color: #EFD9CE;
+  }
+  
+  .header button {
+    padding: 10px;
+    background-color: #EFD9CE;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .header button:hover {
+    background-color: #2196f3;
+    color: white;
+  }
+
+
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+ /* CATEGORIAS */
+
+
+ .categorias {
+    width: 20%;
+    padding: 20px;
+    background-color: #685044;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+  
+
+  
+  .categorias button {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #685044;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .categorias button:hover {
+    background-color: #685044;
+    color: black;
+  }
+
+ /* PRODUTOS */
+
+ .produtos {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-left: 20px;
+  }
+  
+  .itens {
+    margin-right: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    margin-bottom: 20px;
+    background-color: #f5ebe6;
+    border: 1px solid #cccccc;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+  
+  .itens img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .itens div {
+    padding: 10px;
+  }
+  
+  .itens p {
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    color: black;
+  }
+  
+  .itens span {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+  }
+  
+  .itens button {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 20px;
+    background-color: #685044;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .itens button:hover {
+    background-color: #EFD9CE;
+  }
+  
